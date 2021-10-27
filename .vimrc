@@ -15,7 +15,7 @@ Plug 'janko/vim-test'             " Run Ruby and Elixir tests
 Plug 'nikolalsvk/vim-rails'       " Rails plugin
 
 Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
-Plug 'tpope/vim-fugitive'         " :Gblame
+" Plug 'tpope/vim-fugitive'         " :Gblame
 Plug 'tpope/vim-rhubarb'          " :GBrowse
 
 Plug 'tpope/vim-endwise'          " Autocomplete end after a do
@@ -38,7 +38,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()              " required
 filetype plugin indent on    " required
 
-" Leader key is SPACE, I find it the best
+" Leader key is COMMA
 let mapleader = ","
 
 " Look and Feel settings
@@ -199,7 +199,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>f   :CocCommand prettier.formatFile<CR>
 
 " Fix some weird error with Fugitive
-let g:fugitive_pty = 0
+" let g:fugitive_pty = 0
 
 " Change cursor to solid vertical line
 " There are problems with Vim's floating window setting cursor to a solid
@@ -315,4 +315,8 @@ hi Visual ctermfg=253 ctermbg=25 gui=underline cterm=underline
 highlight Cursor guifg=white guibg=black
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
+
+set isfname+=@-@ "o open files like import from "@redux"
+
 " end of my c
+
