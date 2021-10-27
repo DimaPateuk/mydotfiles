@@ -4,12 +4,13 @@ filetype off     " required
 
 " Keep Plug commands between plug#begin() and plug#end().
 call plug#begin()
-
 " Keep Plug commands between plug#begin() and plug#end().
 " my
 Plug 'arcticicestudio/nord-vim'   " Nord theme
+Plug 'zivyangll/git-blame.vim'
 
 " end of my
+
 
 Plug 'janko/vim-test'             " Run Ruby and Elixir tests
 Plug 'nikolalsvk/vim-rails'       " Rails plugin
@@ -128,45 +129,13 @@ au BufRead,BufNewFile *.feature setlocal spell
 " Delete characters outside of insert area
 set backspace=indent,eol,start
 
-" +++ Shortcuts +++
-" Open Buffer
-nnoremap <silent><leader>l :Buffers<CR>
-" Open test file for a current file
-nnoremap <silent><leader>s :A<CR>
-" Open test file for a current file in a vertical window
-
-" Vertically split screen
-nnoremap <silent><leader>\ :vs<CR>
-" Split screen
-nnoremap <silent><leader>/ :split<CR>
-
-" Faster saving and exiting
-nnoremap <silent><leader>w :w!<CR>
-nnoremap <silent><leader>q :q!<CR>
-nnoremap <silent><leader>x :x<CR>
-" Open Vim configuration file for editing
-nnoremap <silent><leader>2 :e ~/.vimrc<CR>
-" Source Vim configuration file and install plugins
-nnoremap <silent><leader>r :source ~/.vimrc<CR>
-
-" Toggle relative line numbers
-nnoremap <leader>rn :set relativenumber!<cr>
-
 " If fzf installed using git
 set rtp+=~/.fzf
 " Map fzf search to CTRL P
 nnoremap <C-p> :GFiles<Cr>
-" Map fzf + ag search to CTRL P
-nnoremap <C-g> :Ag <Cr>
 
-" vim-test shortcut for running tests
-nnoremap <silent><leader>; :TestNearest<CR>
-nnoremap <silent><leader>' :TestFile<CR>
 
-" Extra <CR> is for disabling /"Press ENTER or type command to continue/"
-nnoremap <silent><leader>e :Exp<CR><CR>
-
-" Easier movement between split windows CTRL + {h, j, k, l}
+" TODO Easier movement between split windows CTRL + {h, j, k, l}
 " nnoremap <c-h> <c-w>h
 " nnoremap <c-j> <c-w>j
 " nnoremap <c-k> <c-w>k
@@ -227,18 +196,14 @@ let &t_EI = "\e[2 q" " everything elese
 hi CocErrorFloat guifg=Magenta guibg=Magenta
 
 
-" Use templates https://vimtricks.com/p/automated-file-templates/
+" TODO Use templates https://vimtricks.com/p/automated-file-templates/
 autocmd BufNewFile *.test.tsx        0r ~/Documents/dotfiles/skeletons/react-typescript.test.tsx
 autocmd BufNewFile *\(test\)\@<!.tsx 0r ~/Documents/dotfiles/skeletons/react-typescript.tsx
 autocmd BufNewFile *content/blog*.md 0r ~/Documents/dotfiles/skeletons/blog-post.md
 autocmd BufNewFile *.sh              0r ~/Documents/dotfiles/skeletons/script.sh
 autocmd BufNewFile *.html            0r ~/Documents/dotfiles/skeletons/page.html
 
-
-
 " My config
-
-
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -300,7 +265,12 @@ set hlsearch
 
 nmap <Leader>n :let @/=expand("%:t") <Bar> execute 'Explore' expand("%:h") <Bar> normal n<CR>
 nnoremap <leader>ev :vsp ~/.vimrc<CR>
+nnoremap <silent><leader>r :source ~/.vimrc<CR>
 nmap <Leader>m :Vex<CR>
+
+
+" Toggle relative line numbers
+nnoremap <leader>rn :set relativenumber!<cr>
 
 noremap n nzz
 nnoremap N Nzz
