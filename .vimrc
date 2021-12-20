@@ -8,7 +8,9 @@ call plug#begin()
 " my
 Plug 'arcticicestudio/nord-vim'   " Nord theme
 Plug 'zivyangll/git-blame.vim'
-Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/spelunker.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-commentary'
 
 " end of my
 
@@ -83,7 +85,7 @@ set foldmethod=syntax
 set foldlevel=99
 
 " Enable folding with the z key
-nmap z za
+" nmap z za
 
 " Disable all bells and whistles
 set noerrorbells visualbell t_vb=
@@ -196,15 +198,7 @@ let &t_EI = "\e[2 q" " everything elese
 " Fix syntax highlight for Coc plugin floating errors
 hi CocErrorFloat guifg=Magenta guibg=Magenta
 
-
-" TODO Use templates https://vimtricks.com/p/automated-file-templates/
-autocmd BufNewFile *.test.tsx        0r ~/Documents/dotfiles/skeletons/react-typescript.test.tsx
-autocmd BufNewFile *\(test\)\@<!.tsx 0r ~/Documents/dotfiles/skeletons/react-typescript.tsx
-autocmd BufNewFile *content/blog*.md 0r ~/Documents/dotfiles/skeletons/blog-post.md
-autocmd BufNewFile *.sh              0r ~/Documents/dotfiles/skeletons/script.sh
-autocmd BufNewFile *.html            0r ~/Documents/dotfiles/skeletons/page.html
-
-" My config
+" My configuration
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -234,7 +228,7 @@ nnoremap <S-j> :m .+1<CR>==
 nnoremap <S-k> :m .-2<CR>==
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
-" MOOVIND SCREEN
+" MOVING SCREEN
 nnoremap <C-j> <C-d><CR>
 nnoremap <C-k> <C-u><CR>
 
@@ -289,15 +283,18 @@ inoremap <C-k> <C-p>
 
 set isfname+=@-@ "o open files like import from "@redux"
 
-
+set spell spelllang=en_us
+" set nospell
+" https://www.linux.com/training-tutorials/using-spell-checking-vim/
 
 " autocmd – run this automatically on some event
 " BufNewFile – this is Vim’s new file event
 " readme.md – this is the pattern you want the new file to match
 " 0r – read into the buffer starting at line 0, the first line
 " ~/skeletons/readme.md – the file to read in
-autocmd BufNewFile readme.md 0r ~/skeletons/readme.md
-autocmd BufNewFile *.sh 0r ~/skeletons/bash.sh
+" autocmd BufNewFile readme.md 0r ~/skeletons/readme.md
+" autocmd BufNewFile *.sh 0r ~/skeletons/bash.sh
+autocmd BufNewFile *.tsx 0r ~/work/mydotfiles/skeletons/component.tsx
 
 " autoReload if contend has been changed outside of the vim
 au CursorHold,CursorHoldI * checktime
