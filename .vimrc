@@ -6,7 +6,9 @@ filetype off     " required
 call plug#begin()
 " Keep Plug commands between plug#begin() and plug#end().
 " my
-Plug 'arcticicestudio/nord-vim'   " Nord theme
+" Plug 'arcticicestudio/nord-vim'   " Nord theme
+Plug 'dracula/vim'
+
 Plug 'zivyangll/git-blame.vim'
 " Plug 'kamykn/spelunker.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -45,8 +47,11 @@ filetype plugin indent on    " required
 " Leader key is COMMA
 let mapleader = ","
 
-" Look and Feel settings
+
 syntax enable
+colorscheme dracula
+
+
 " set background=dark
 set wildmenu " when opening a file with e.g. :e ~/.vim<TAB> there is a graphical menu of all the matches
 set ttyfast
@@ -271,8 +276,6 @@ noremap n nzz
 nnoremap N Nzz
 
 set ttimeoutlen=1
-
-colorscheme nord
 
 set cursorline
 hi CursorLine ctermfg=None ctermbg=None gui=underline cterm=underline
