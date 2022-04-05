@@ -16,10 +16,6 @@ Plug 'tpope/vim-commentary'
 
 " end of my
 
-
-Plug 'janko/vim-test'             " Run Ruby and Elixir tests
-Plug 'nikolalsvk/vim-rails'       " Rails plugin
-
 Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
 " Plug 'tpope/vim-fugitive'         " :Gblame
 Plug 'tpope/vim-rhubarb'          " :GBrowse
@@ -42,12 +38,15 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " All of your Plugins must be added before the following line
 call plug#end()              " required
+
+
 filetype plugin indent on    " required
 
 " Leader key is COMMA
 let mapleader = ","
 
 
+let g:dracula_italic = 0
 syntax enable
 colorscheme dracula
 
@@ -156,6 +155,7 @@ let g:coc_global_extensions = ['coc-solargraph', 'coc-tsserver', 'coc-json']
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
 endif
+
 
 " Add CoC ESLint if ESLint is installed
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
@@ -302,4 +302,6 @@ autocmd BufNewFile *.tsx 0r ~/work/mydotfiles/skeletons/component.tsx
 " autoReload if contend has been changed outside of the vim
 au CursorHold,CursorHoldI * checktime
 " end of my c
+
+autocmd FileType * let b:coc_pairs_disabled = ["<"]
 
