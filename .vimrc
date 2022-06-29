@@ -303,5 +303,8 @@ autocmd BufNewFile *.tsx 0r ~/work/mydotfiles/skeletons/component.tsx
 au CursorHold,CursorHoldI * checktime
 " end of my c
 
-autocmd FileType * let b:coc_pairs_disabled = ["<"]
+let b:coc_pairs_disabled = ["<"]
 
+" Allow netrw to remove non-empty local directories
+"
+let g:netrw_rmdir_cmd='rm -r'
