@@ -132,6 +132,7 @@ set laststatus=2
 au BufRead,BufNewFile *.md setlocal spell
 au BufRead,BufNewFile *.md.erb setlocal spell
 au BufRead,BufNewFile *.feature setlocal spell
+setlocal spell
 
 " Delete characters outside of insert area
 set backspace=indent,eol,start
@@ -148,7 +149,12 @@ nnoremap <C-p> :GFiles<Cr>
 " nnoremap <c-k> <c-w>k
 " nnoremap <c-l> <c-w>l
 
+
 " CoC extensions
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
 let g:coc_global_extensions = ['coc-solargraph', 'coc-tsserver', 'coc-json']
 
 " Add CoC Prettier if prettier is installed
@@ -162,15 +168,40 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+
+
 
 " Format
 nmap <leader>f   :CocCommand prettier.formatFile<CR>
@@ -234,8 +265,8 @@ nnoremap <S-k> :m .-2<CR>==
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
 " MOVING SCREEN
-nnoremap <C-j> <C-d><CR>
-nnoremap <C-k> <C-u><CR>
+nnoremap <C-j> <C-d>zz<CR>
+nnoremap <C-k> <C-u>zz<CR>
 
 
 nnoremap <C-u> :redo<CR>
@@ -258,6 +289,7 @@ noremap <Leader>P "*P
 vnoremap p "_dp"<CR>
 vnoremap P "_dP"<CR>
 
+
 set incsearch
 " set cursorline
 " hi CursorLine ctermfg=None ctermbg=None gui=underline cterm=underline
@@ -271,6 +303,7 @@ nmap <Leader>m :Vex<CR>
 
 " Toggle relative line numbers
 nnoremap <leader>rn :set relativenumber!<cr>
+set relativenumber
 
 noremap n nzz
 nnoremap N Nzz
@@ -303,8 +336,8 @@ autocmd BufNewFile *.tsx 0r ~/work/mydotfiles/skeletons/component.tsx
 au CursorHold,CursorHoldI * checktime
 " end of my c
 
-let b:coc_pairs_disabled = ["<"]
-
 " Allow netrw to remove non-empty local directories
 "
 let g:netrw_rmdir_cmd='rm -r'
+
+call CocAction('toggleExtension', 'coc-pairs')
