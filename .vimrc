@@ -100,9 +100,9 @@ nmap <leader>a :Ack! ""<Left>
 nmap <leader>A :Ack! "\b<cword>\b"<CR>
 
 " Tab Options
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2 " Number of spaces a tab counts when editing
+" set shiftwidth=2
+" set tabstop=2
+" set softtabstop=2 " Number of spaces a tab counts when editing
 set expandtab
 
 " Delete empty space from the end of lines on every save
@@ -170,8 +170,8 @@ endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)zz
+nmap <silent> ]g <Plug>(coc-diagnostic-next)zz
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -334,10 +334,14 @@ autocmd BufNewFile *.tsx 0r ~/work/mydotfiles/skeletons/component.tsx
 
 " autoReload if contend has been changed outside of the vim
 au CursorHold,CursorHoldI * checktime
-" end of my c
 
 " Allow netrw to remove non-empty local directories
 "
 let g:netrw_rmdir_cmd='rm -r'
 
-call CocAction('toggleExtension', 'coc-pairs')
+if exists('*CocActionAsync')
+  call CocAction('toggleExtension', 'coc-pairs')
+endif
+
+set autoread
+
